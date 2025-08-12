@@ -25,9 +25,9 @@ class ActivityEventPipeline:
         """Initialize Activity Event Pipeline"""
         logger.info("🚀 Activity Event Pipeline initialized")
         
-        # Kafka configuration
+        # Kafka configuration - Internal cluster DNS
         self.kafka_config = {
-            'bootstrap_servers': ['localhost:9092'],
+            'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
             'auto_offset_reset': 'latest',  # Only process new messages
             'enable_auto_commit': True,
             'group_id': 'activity-event-processor',
@@ -35,17 +35,16 @@ class ActivityEventPipeline:
         }
         
         self.producer_config = {
-            'bootstrap_servers': ['localhost:9092'],
+            'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
             'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8')
         }
         
         self.raw_topic = 'omre-cbp-cdp-raw-test-dev'
         self.cleaned_topic = 'omre-cbp-cdp-cleaned-test-dev'
         
-        # MySQL connection settings for metadata lookup (QC)
-        # Assumes port-forward to qc MySQL is active: kubectl port-forward pod/mysql-0 3306:3306 -n qc
+        # MySQL connection settings for metadata lookup (QC) - Internal cluster DNS
         self.mysql_config = {
-            'host': 'localhost',
+            'host': 'mysql.qc.svc.cluster.local',
             'port': 3306,
             'user': 'root',
             'password': 'Gdwedfkndgwodn@123',
