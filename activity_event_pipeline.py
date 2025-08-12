@@ -792,6 +792,29 @@ class ActivityEventPipeline:
                 after_status = after.get('status', '').upper()
                 if before_status == 'ACTIVE' and after_status == 'DELETED':
                     return 'delete-profile'
+            
+            # 🎯 FILTER: Skip if ONLY last_interaction_date changed (triggered by activity events)
+            if before and after:
+                # Find actual meaningful changes (ignore timestamp-only updates)
+                meaningful_changes = []
+                ignore_fields = ['last_interaction_date', 'updated_at', 'last_modified_date', 'modified_date']
+                
+                # Check all fields for meaningful changes
+                all_fields = set(before.keys()) | set(after.keys())
+                for field in all_fields:
+                    if field.lower() in [f.lower() for f in ignore_fields]:
+                        continue  # Skip timestamp fields
+                    
+                    before_val = before.get(field)
+                    after_val = after.get(field)
+                    if before_val != after_val:
+                        meaningful_changes.append(field)
+                
+                # If ONLY timestamp fields changed, skip this profile event
+                if not meaningful_changes:
+                    logger.info(f"↩️ Skipping profile update - only timestamp fields changed in {source_table}")
+                    return None
+            
             # Regular profile update for any table
             return 'update-profile'
                 
@@ -1382,11 +1405,11 @@ def main():
 ✅ Raw topic: omre-cbp-cdp-raw-test-dev
 ✅ Cleaned topic: omre-cbp-cdp-cleaned-test-dev
 ✅ Processing mode: LATEST (only new messages)
+✅ MySQL: mysql.qc.svc.cluster.local:3306 (Internal cluster DNS)
+✅ Kafka: kafka.qc.svc.cluster.local:9092 (Internal cluster DNS)
 
 🔎 Cleaned output now forwards ONLY omre_cbp_activity_qc.* messages.
    UNKNOWN_COLx are mapped to real column names and changed_columns are included.
-
-💡 Ensure MySQL (qc) port-forward is active: kubectl port-forward pod/mysql-0 3306:3306 -n qc
     """)
     
     # Run the pipeline
