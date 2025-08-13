@@ -44,7 +44,7 @@ class ActivityEventPipeline:
         
         # MySQL connection settings for metadata lookup (QC) - Internal cluster DNS
         self.mysql_config = {
-            'host': 'mysql.qc.svc.cluster.local:3306',
+            'host': 'mysql.qc.svc.cluster.local',
             'port': 3306,
             'user': 'root',
             'password': 'Gdwedfkndgwodn@123',
@@ -1405,7 +1405,7 @@ def main():
 ✅ Raw topic: omre-cbp-cdp-raw-test-dev
 ✅ Cleaned topic: omre-cbp-cdp-cleaned-test-dev
 ✅ Processing mode: LATEST (only new messages)
-✅ MySQL: mysql.qc.svc.cluster.local:3306:3306 (Internal cluster DNS)
+✅ MySQL: mysql.qc.svc.cluster.local:3306 (Internal cluster DNS)
 ✅ Kafka: kafka.dev.svc.cluster.local:9092 (Internal cluster DNS)
 
 🔎 Cleaned output now forwards ONLY omre_cbp_activity_qc.* messages.
