@@ -9,6 +9,9 @@ apt-get install -y python3 python3-pip
 echo "📦 Cài đặt kafka-python==2.0.2, pymysql==1.0.2 và mysql-connector-python..."
 pip3 install kafka-python==2.0.2 pymysql==1.0.2 mysql-connector-python
 
+echo "📦 Cài đặt thêm mysql-replication, kafka-python và pymysql (đảm bảo đầy đủ thư viện)..."
+pip3 install mysql-replication kafka-python pymysql
+
 echo "🧪 Tạo file kiểm tra kết nối MySQL và Kafka..."
 
 cat << 'EOF' > test_connections.py
