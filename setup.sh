@@ -22,7 +22,7 @@ from kafka import KafkaProducer
 def test_mysql():
     try:
         conn = mysql.connector.connect(
-            host='mysql.dev.svc.cluster.local:3306',
+            host='mysql.qc.svc.cluster.local:3306',
             user='root',
             password='Gdwedfkndgwodn@123',
             port=3306,

@@ -26,7 +26,7 @@ class CompleteCDCMonitor:
         print("🔥 Complete CDC Monitor (QC Internal) initialized")
         
         # MySQL internal DNS config
-        self.db_host = "mysql.dev.svc.cluster.local:3306"
+        self.db_host = "mysql.qc.svc.cluster.local:3306"
         self.db_port = 3306
         self.db_user = "root"
         self.db_password = "Gdwedfkndgwodn@123"
