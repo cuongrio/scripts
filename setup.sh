@@ -19,10 +19,11 @@ from kafka import KafkaProducer
 def test_mysql():
     try:
         conn = mysql.connector.connect(
-            host='localhost',  # đổi thành host MySQL của bạn
-            user='root',       # đổi thành user của bạn
-            password='',       # đổi thành password của bạn
-            port=3306
+            host='mysql.qc.svc.cluster.local',
+            user='root',
+            password='Gdwedfkndgwodn@123',
+            port=3306,
+            charset='utf8mb4'
         )
         if conn.is_connected():
             print("✅ Kết nối MySQL thành công!")
@@ -34,7 +35,10 @@ def test_mysql():
 
 def test_kafka():
     try:
-        producer = KafkaProducer(bootstrap_servers='localhost:9092')
+        producer = KafkaProducer(
+            bootstrap_servers=['kafka.qc.svc.cluster.local:9092'],
+            client_id='test-connection'
+        )
         producer.close()
         print("✅ Kết nối Kafka thành công!")
     except Exception as e:
