@@ -26,7 +26,7 @@ class CompleteCDCMonitor:
         print("🔥 Complete CDC Monitor (QC Internal) initialized")
         
         # MySQL internal DNS config
-        self.db_host = "mysql.qc.svc.cluster.local"
+        self.db_host = "mysql.dev.svc.cluster.local:3306"
         self.db_port = 3306
         self.db_user = "root"
         self.db_password = "Gdwedfkndgwodn@123"
@@ -64,7 +64,7 @@ class CompleteCDCMonitor:
         
         # Kafka internal DNS config
         self.kafka_config = {
-            'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
+            'bootstrap_servers': ['kafka.dev.svc.cluster.local:9092'],
             'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8')
         }
         

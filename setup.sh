@@ -22,7 +22,7 @@ from kafka import KafkaProducer
 def test_mysql():
     try:
         conn = mysql.connector.connect(
-            host='mysql.qc.svc.cluster.local',
+            host='mysql.dev.svc.cluster.local:3306',
             user='root',
             password='Gdwedfkndgwodn@123',
             port=3306,
@@ -39,7 +39,7 @@ def test_mysql():
 def test_kafka():
     try:
         producer = KafkaProducer(
-            bootstrap_servers=['kafka.qc.svc.cluster.local:9092'],
+            bootstrap_servers=['kafka.dev.svc.cluster.local:9092'],
             client_id='test-connection'
         )
         producer.close()
