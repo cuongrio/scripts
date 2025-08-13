@@ -3,8 +3,8 @@
 set -e
 
 echo "🛠️ Cập nhật hệ thống và cài đặt Python3, pip..."
-sudo apt-get update -y
-sudo apt-get install -y python3 python3-pip
+apt-get update -y
+apt-get install -y python3 python3-pip
 
 echo "📦 Cài đặt kafka-python==2.0.2, pymysql==1.0.2 và mysql-connector-python..."
 pip3 install kafka-python==2.0.2 pymysql==1.0.2 mysql-connector-python
