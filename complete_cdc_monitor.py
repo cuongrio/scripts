@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 class CompleteCDCMonitor:
     def __init__(self):
         """Initialize Complete CDC Monitor"""
-        print("🔥 Complete CDC Monitor (QC Internal) initialized")
+        logger.info("🔥 Complete CDC Monitor (QC Internal) initialized")
         
         # MySQL internal DNS config
         self.db_host = "mysql.qc.svc.cluster.local"
@@ -76,10 +76,10 @@ class CompleteCDCMonitor:
     def connect_kafka(self):
         try:
             self.kafka_producer = KafkaProducer(**self.kafka_config)
-            print("✅ Connected to Kafka producer")
+            logger.info("✅ Connected to Kafka producer")
             return True
         except Exception as e:
-            print(f"❌ Failed to connect to Kafka: {e}")
+            logger.error(f"❌ Failed to connect to Kafka: {e}")
             return False
 
     def serialize_data(self, data):
@@ -128,15 +128,15 @@ class CompleteCDCMonitor:
             key = f"{schema}.{table_name}_{record_id}".encode('utf-8')
             future = self.kafka_producer.send(self.raw_topic, key=key, value=message)
             result = future.get(timeout=10)
-            print(f"🚀 CDC sent: {schema}.{table_name}.{record_id} → partition={result.partition}, offset={result.offset}")
+            logger.info(f"🚀 CDC sent: {schema}.{table_name}.{record_id} → partition={result.partition}, offset={result.offset}")
         except Exception as e:
-            print(f"❌ Failed to send CDC: {e}")
+            logger.error(f"❌ Failed to send CDC: {e}")
 
     def start_monitoring(self):
         try:
             self.stream = BinLogStreamReader(**self.binlog_config)
             self.is_monitoring = True
-            print("✅ Binlog stream established - monitoring QC databases...")
+            logger.info("✅ Binlog stream established - monitoring QC databases...")
             for binlogevent in self.stream:
                 if not self.is_monitoring:
                     break
@@ -170,7 +170,7 @@ class CompleteCDCMonitor:
         self.is_monitoring = False
         if self.stream:
             self.stream.close()
-        print("⏹️ Monitoring stopped")
+        logger.info("⏹️ Monitoring stopped")
 
     def close(self):
         self.stop_monitoring()
@@ -184,7 +184,7 @@ def main():
     try:
         monitor.start_monitoring()
     except KeyboardInterrupt:
-        print("🛑 Interrupted by user")
+        logger.info("🛑 Interrupted by user")
     finally:
         monitor.close()
 
