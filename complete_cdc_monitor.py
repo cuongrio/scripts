@@ -30,7 +30,7 @@ class CompleteCDCMonitor:
         
         # Database configuration - QC environment
         self.db_config = {
-            'host': 'localhost',
+            'host': 'mysql.qc.svc.cluster.local',
             'port': 3306,
             'user': 'root',
             'password': 'Gdwedfkndgwodn@123'
@@ -39,7 +39,7 @@ class CompleteCDCMonitor:
         # Binlog reader configuration - MONITOR ALL QC DATABASES
         self.binlog_config = {
             'connection_settings': {
-                'host': 'localhost',
+                'host': 'mysql.qc.svc.cluster.local',
                 'port': 3306,
                 'user': 'root',
                 'passwd': 'Gdwedfkndgwodn@123'
