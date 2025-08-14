@@ -27,7 +27,7 @@ class ActivityEventPipeline:
         
         # Kafka configuration - Internal cluster DNS
         self.kafka_config = {
-            'bootstrap_servers': ['kafka.dev.svc.cluster.local:9092'],
+            'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
             'auto_offset_reset': 'latest',  # Only process new messages
             'enable_auto_commit': True,
             'group_id': 'activity-event-processor',
@@ -39,8 +39,8 @@ class ActivityEventPipeline:
             'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8')
         }
         
-        self.raw_topic = 'omre-cbp-cdp-raw-test-dev'
-        self.cleaned_topic = 'omre-cbp-cdp-cleaned-test-dev'
+        self.raw_topic = 'omre-cbp-cdp-raw-test-qc'
+        self.cleaned_topic = 'omre-cbp-cdp-cleaned-test-qc'
         
         # MySQL connection settings for metadata lookup (QC) - Internal cluster DNS
         self.mysql_config = {
