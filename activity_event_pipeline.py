@@ -1459,8 +1459,8 @@ class ActivityEventPipeline:
             'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8')
         }
         
-        self.raw_topic = 'omre-cbp-cdp-raw-test-dev'
-        self.cleaned_topic = 'omre-cbp-cdp-cleaned-test-dev'
+        self.raw_topic = 'omre-cbp-cdp-raw-test-qc'
+        self.cleaned_topic = 'omre-cbp-cdp-cleaned-test-qc'
         
         # MySQL connection settings for metadata lookup (QC)
         # Assumes port-forward to qc MySQL is active: kubectl port-forward pod/mysql-0 3306:3306 -n qc
@@ -2823,8 +2823,8 @@ def main():
 🚀 Activity Event Pipeline Ready!
 
 📋 CONFIGURATION:
-✅ Raw topic: omre-cbp-cdp-raw-test-dev
-✅ Cleaned topic: omre-cbp-cdp-cleaned-test-dev
+✅ Raw topic: omre-cbp-cdp-raw-test-qc
+✅ Cleaned topic: omre-cbp-cdp-cleaned-test-qc
 ✅ Processing mode: LATEST (only new messages)
 
 🔎 Cleaned output now forwards ONLY omre_cbp_activity_qc.* messages.
