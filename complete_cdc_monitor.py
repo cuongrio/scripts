@@ -125,7 +125,8 @@ class CompleteCDCMonitor:
 
     def send_cdc_message(self, message, schema, table_name, record_id):
         try:
-            key = f"{schema}.{table_name}_{record_id}".encode('utf-8')
+            # key = f"{schema}.{table_name}_{record_id}".encode('utf-8')
+            key = f"{schema}.{table_name}_{record_id}"
             future = self.kafka_producer.send(self.raw_topic, key=key, value=message)
             result = future.get(timeout=10)
             print(f"🚀 CDC sent: {schema}.{table_name}.{record_id} → partition={result.partition}, offset={result.offset}")
