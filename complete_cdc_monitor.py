@@ -63,7 +63,7 @@ class CompleteCDCMonitor:
         
         # Kafka configuration
         self.kafka_config = {
-            'bootstrap_servers': ['localhost:9092'],
+            'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
             'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8')
         }
         
