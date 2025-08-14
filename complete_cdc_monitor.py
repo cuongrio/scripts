@@ -66,6 +66,8 @@ class CompleteCDCMonitor:
         self.kafka_config = {
             'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
             'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8')
+            'key_serializer': lambda x: x.encode('utf-8') if isinstance(x, str) else str(x).encode('utf-8')
+
         }
         
         self.raw_topic = 'omre-cbp-cdp-raw-test-qc'
@@ -125,8 +127,8 @@ class CompleteCDCMonitor:
 
     def send_cdc_message(self, message, schema, table_name, record_id):
         try:
-            key = f"{schema}.{table_name}_{record_id}".encode('utf-8')
-            # key = f"{schema}.{table_name}_{record_id}"
+            # key = f"{schema}.{table_name}_{record_id}".encode('utf-8')
+            key = f"{schema}.{table_name}_{record_id}"
             future = self.kafka_producer.send(self.raw_topic, key=key, value=message)
             result = future.get(timeout=10)
             print(f"🚀 CDC sent: {schema}.{table_name}.{record_id} → partition={result.partition}, offset={result.offset}")
