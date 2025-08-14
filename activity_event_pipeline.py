@@ -27,7 +27,7 @@ class ActivityEventPipeline:
         
         # Kafka configuration
         self.kafka_config = {
-            'bootstrap_servers': ['localhost:9092'],
+            'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
             'auto_offset_reset': 'latest',  # Only process new messages
             'enable_auto_commit': True,
             'group_id': 'activity-event-processor',
