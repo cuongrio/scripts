@@ -35,7 +35,7 @@ class ActivityEventPipeline:
         }
         
         self.producer_config = {
-            'bootstrap_servers': ['localhost:9092'],
+            'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
             'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8')
         }
         
@@ -45,7 +45,7 @@ class ActivityEventPipeline:
         # MySQL connection settings for metadata lookup (QC)
         # Assumes port-forward to qc MySQL is active: kubectl port-forward pod/mysql-0 3306:3306 -n qc
         self.mysql_config = {
-            'host': 'localhost',
+            'host': 'mysql.qc.svc.cluster.local:3306',
             'port': 3306,
             'user': 'root',
             'password': 'Gdwedfkndgwodn@123',
