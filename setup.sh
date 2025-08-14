@@ -36,7 +36,7 @@ def test_mysql():
 def test_kafka():
     try:
         producer = KafkaProducer(
-            bootstrap_servers=['kafka.dev.svc.cluster.local:9092'],
+            bootstrap_servers=['kafka.qc.svc.cluster.local:9092'],
             client_id='test-connection'
         )
         producer.close()
