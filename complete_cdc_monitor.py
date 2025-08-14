@@ -64,11 +64,11 @@ class CompleteCDCMonitor:
         
         # Kafka internal DNS config
         self.kafka_config = {
-            'bootstrap_servers': ['kafka.dev.svc.cluster.local:9092'],
+            'bootstrap_servers': ['kafka.qc.svc.cluster.local:9092'],
             'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8')
         }
         
-        self.raw_topic = 'omre-cbp-cdp-raw-test-dev'
+        self.raw_topic = 'omre-cbp-cdp-raw-test-qc'
         self.kafka_producer = None
         self.stream = None
         self.is_monitoring = False
