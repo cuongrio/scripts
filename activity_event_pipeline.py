@@ -1402,8 +1402,8 @@ def main():
 🚀 Activity Event Pipeline Ready!
 
 📋 CONFIGURATION:
-✅ Raw topic: omre-cbp-cdp-raw-test-dev
-✅ Cleaned topic: omre-cbp-cdp-cleaned-test-dev
+✅ Raw topic: omre-cbp-cdp-raw-test-qc
+✅ Cleaned topic: omre-cbp-cdp-cleaned-test-qc
 ✅ Processing mode: LATEST (only new messages)
 ✅ MySQL: mysql.qc.svc.cluster.local:3306 (Internal cluster DNS)
 ✅ Kafka: kafka.qc.svc.cluster.local:9092 (Internal cluster DNS)
